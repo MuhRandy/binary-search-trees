@@ -191,6 +191,41 @@ module.exports = class Tree {
       this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
   }
 
+  depth(node, root = this.root) {
+    const data = this.find(node);
+
+    if (data === undefined) return 0;
+
+    let total = 0;
+
+    if (root === null) return 0;
+
+    if (node < root.data) {
+      total++;
+      return total + this.depth(node, root.left);
+    }
+
+    if (node > root.data) {
+      total++;
+      return total + this.depth(node, root.right);
+    }
+
+    return total;
+  }
+
+  isBalanced() {
+    const left = this.#leftHeight(this.root);
+    const right = this.#rightHeight(this.root);
+
+    if (Math.abs(left - right) > 1) return false;
+    return true;
+  }
+
+  rebalance() {
+    const newRootArr = this.depthFirst("inorder");
+    this.root = this.buildTree(newRootArr);
+  }
+
   #sortAndNoDuplicate(array) {
     const set = new Set(array);
     return [...set].sort((a, b) => a - b);

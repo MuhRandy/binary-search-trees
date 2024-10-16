@@ -1,32 +1,31 @@
 const Tree = require("./models/Tree");
 const util = require("util");
+const { generateRandomArray } = require("./services/DataGenerator");
 
-const tree = new Tree([1, 2, 3, 5, 4, 3, 6, 7, 9]);
-// const tree = new Tree();
+const array = generateRandomArray(7);
 
-// console.log(util.inspect(tree, { depth: null }));
+const tree = new Tree(array);
 
-// // tree.insert(2);
-// tree.insert(-7);
-// // tree.insert(7);
-// // console.log(tree.find(10));
-// // console.log(tree.levelOrder());
-// // console.log(typeof logValue);
-// // tree.levelOrder((value) => console.log(value));
-// // console.log(tree.inOrder());
-// // tree.inOrder((value) => console.log(value));
-// // tree.preOrder((v) => console.log(v));
-// // tree.postOrder((v) => console.log(v));
+tree.prettyPrint();
+console.log(tree.isBalanced());
+console.log("\n");
+tree.levelOrder((v) => console.log(v));
+console.log("\n");
+tree.inOrder((v) => console.log(v));
+console.log("\n");
+tree.preOrder((v) => console.log(v));
+console.log("\n");
+tree.postOrder((v) => console.log(v));
 
-// // console.log(util.inspect(tree, { depth: null }));
-// tree.prettyPrint();
-// // console.log(tree.height(3));
-// // console.log(tree.height(2));
-// // console.log(tree.height(1));
+tree.insert(300);
+tree.insert(286);
+tree.insert(296);
+tree.insert(786);
+tree.insert(906);
+tree.insert(560);
+tree.prettyPrint();
 
-// console.log(tree.depth(7));
-// // console.log(tree.isBalanced());
-// tree.rebalance();
-// tree.prettyPrint();
+tree.rebalance();
+console.log(tree.isBalanced());
 
-console.log(Math.floor(Math.random() * 100));
+tree.prettyPrint();
